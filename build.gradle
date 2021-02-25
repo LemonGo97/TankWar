@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group 'top.elizabath'
+group 'cn.lemongo97'
 version '1.0-SNAPSHOT'
 
 tasks.withType(JavaCompile) {

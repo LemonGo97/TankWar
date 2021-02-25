@@ -1,4 +1,4 @@
-package top.elizabath.tankwar;
+package cm.lemongo97.tankwar;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
