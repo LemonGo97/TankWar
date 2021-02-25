@@ -1,4 +1,4 @@
-package cm.lemongo97.tankwar;
+package cn.lemongo97.tankwar;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
