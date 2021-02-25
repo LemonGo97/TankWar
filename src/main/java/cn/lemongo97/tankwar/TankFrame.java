@@ -26,21 +26,54 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
-        System.out.println("paint");
         g.fillRect(x, y, 50, 50);
-        x += 20;
-        y += 20;
     }
 
-    static class MyKeyListener extends KeyAdapter {
+    class MyKeyListener extends KeyAdapter {
+        boolean left = false;
+        boolean up = false;
+        boolean right = false;
+        boolean down = false;
         @Override
         public void keyPressed(KeyEvent e) {
-            System.out.println("keyPressed");
+            int keyCode = e.getKeyCode();
+            switch (keyCode) {
+                case KeyEvent.VK_LEFT:
+                    left = true;
+                    break;
+                case KeyEvent.VK_UP:
+                    up = true;
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    right = true;
+                    break;
+                case KeyEvent.VK_DOWN:
+                    down = true;
+                    break;
+                default:
+                    break;
+            }
         }
 
         @Override
         public void keyReleased(KeyEvent e) {
-            System.out.println("keyReleased");
+            int keyCode = e.getKeyCode();
+            switch (keyCode) {
+                case KeyEvent.VK_LEFT:
+                    left = false;
+                    break;
+                case KeyEvent.VK_UP:
+                    up = false;
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    right = false;
+                    break;
+                case KeyEvent.VK_DOWN:
+                    down = false;
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
