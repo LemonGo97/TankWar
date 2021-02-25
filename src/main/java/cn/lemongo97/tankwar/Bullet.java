@@ -4,7 +4,8 @@ import java.awt.*;
 
 public class Bullet {
     private static final int SPEED = 30;
-
+    public static final int BULLET_WIDTH = 6;
+    public static final int BULLET_HEIGHT = 6;
     private int x;
     private int y;
     private boolean live = true;
@@ -24,7 +25,7 @@ public class Bullet {
         }
         Color color = g.getColor();
         g.setColor(Color.RED);
-        g.fillRect(x, y, 5, 5);
+        g.fillRect(x, y, BULLET_WIDTH, BULLET_HEIGHT);
         g.setColor(color);
 
         move();

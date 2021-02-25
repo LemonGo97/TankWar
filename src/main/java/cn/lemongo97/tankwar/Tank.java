@@ -9,6 +9,8 @@ public class Tank {
     private MoveStatus moveStatus;
     private boolean moving = false;
     private TankFrame tankFrame;
+    public static final int TANK_WIDTH = 50;
+    public static final int TANK_HEIGHT = 50;
 
     public Tank(int x, int y, int speed, MoveStatus moveStatus, TankFrame tankFrame) {
         this.x = x;
@@ -61,7 +63,7 @@ public class Tank {
     public void paint(Graphics g) {
         Color color = g.getColor();
         g.setColor(Color.YELLOW);
-        g.fillRect(x, y, 50, 50);
+        g.fillRect(x, y, TANK_WIDTH, TANK_HEIGHT);
         g.setColor(color);
         move();
     }
@@ -87,6 +89,6 @@ public class Tank {
     }
 
     public void fire() {
-        tankFrame.bullets.add(new Bullet(this.x, this.y, this.moveStatus, this.tankFrame));
+        tankFrame.bullets.add(new Bullet(this.x + (TANK_WIDTH / 2 - Bullet.BULLET_WIDTH / 2), this.y + (TANK_HEIGHT / 2 - Bullet.BULLET_HEIGHT / 2), this.moveStatus, this.tankFrame));
     }
 }
