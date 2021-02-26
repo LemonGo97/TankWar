@@ -1,6 +1,7 @@
 package cn.lemongo97.tankwar;
 
 import java.awt.*;
+import java.util.Random;
 
 public class Tank {
     private Integer x;
@@ -12,12 +13,15 @@ public class Tank {
     public static final int TANK_WIDTH = ResourceManager.tankU.getWidth();
     public static final int TANK_HEIGHT = ResourceManager.tankU.getHeight();
     private boolean live = true;
+    private Group group;
+    private Random random = new Random();
 
 
-    public Tank(int x, int y, MoveStatus moveStatus, TankFrame tankFrame) {
+    public Tank(int x, int y, MoveStatus moveStatus,Group group, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.moveStatus = moveStatus;
+        this.group = group;
         this.tankFrame = tankFrame;
     }
 
@@ -90,15 +94,26 @@ public class Tank {
             default:
                 break;
         }
+        if (this.group == Group.GOOD) return;
+        if (random.nextInt(10) > 8) this.fire();
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
     public void fire() {
         int bulletX = this.x + Tank.TANK_WIDTH / 2 - Bullet.BULLET_WIDTH / 2;
         int bulletY = this.y + Tank.TANK_HEIGHT / 2 - Bullet.BULLET_HEIGHT / 2;
-        tankFrame.bullets.add(new Bullet(bulletX, bulletY, this.moveStatus, this.tankFrame));
+        tankFrame.bullets.add(new Bullet(bulletX, bulletY, this.moveStatus,group, this.tankFrame));
     }
 
     public void die() {
         this.live = false;
+        tankFrame.explodes.add(new Explode(this.x,this.y,this.tankFrame));
     }
 }

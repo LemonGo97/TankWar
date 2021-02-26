@@ -11,10 +11,20 @@ public class Bullet {
     private boolean live = true;
     private MoveStatus moveStatus;
     private TankFrame tankFrame;
+    private Group group;
 
-    public Bullet(int x, int y, MoveStatus moveStatus,TankFrame tankFrame) {
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    public Bullet(int x, int y, MoveStatus moveStatus, Group group, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
+        this.group = group;
         this.moveStatus = moveStatus;
         this.tankFrame = tankFrame;
     }
@@ -61,6 +71,9 @@ public class Bullet {
     }
 
     public void collidewith(Tank tank) {
+        if (this.group == tank.getGroup()) return;
+
+        // TODO
         Rectangle bulletRectangle = new Rectangle(this.x,this.y,BULLET_WIDTH,BULLET_HEIGHT);
         Rectangle tankRectangle = new Rectangle(tank.getX(),tank.getY(),Tank.TANK_WIDTH,Tank.TANK_HEIGHT);
 
