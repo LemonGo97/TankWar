@@ -115,5 +115,6 @@ public class Tank {
     public void die() {
         this.live = false;
         tankFrame.explodes.add(new Explode(this.x,this.y,this.tankFrame));
+
     }
 }
