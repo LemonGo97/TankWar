@@ -16,6 +16,7 @@ public class Tank {
     private Group group;
     private Random random = new Random();
 
+    Rectangle rectangle = new Rectangle();
 
     public Tank(int x, int y, MoveStatus moveStatus, Group group, TankFrame tankFrame) {
         this.x = x;
@@ -23,6 +24,11 @@ public class Tank {
         this.moveStatus = moveStatus;
         this.group = group;
         this.tankFrame = tankFrame;
+
+        rectangle.x = x;
+        rectangle.y = y;
+        rectangle.width = TANK_WIDTH;
+        rectangle.height = TANK_HEIGHT;
     }
 
     public Tank(int x, int y, MoveStatus moveStatus, Group group, boolean moving, TankFrame tankFrame) {
@@ -32,6 +38,11 @@ public class Tank {
         this.moving = moving;
         this.group = group;
         this.tankFrame = tankFrame;
+
+        rectangle.x = x;
+        rectangle.y = y;
+        rectangle.width = TANK_WIDTH;
+        rectangle.height = TANK_HEIGHT;
     }
 
     public Integer getX() {
@@ -103,6 +114,10 @@ public class Tank {
             default:
                 break;
         }
+
+        rectangle.x = this.x;
+        rectangle.y = this.y;
+
         if (this.group == Group.BAD && random.nextInt(10) > 8) this.fire();
         if (this.group == Group.BAD) randomMove();
 

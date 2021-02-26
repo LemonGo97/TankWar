@@ -12,7 +12,7 @@ public class Bullet {
     private MoveStatus moveStatus;
     private TankFrame tankFrame;
     private Group group;
-
+    Rectangle rectangle = new Rectangle();
     public Group getGroup() {
         return group;
     }
@@ -27,6 +27,11 @@ public class Bullet {
         this.group = group;
         this.moveStatus = moveStatus;
         this.tankFrame = tankFrame;
+
+        rectangle.x = x;
+        rectangle.y = y;
+        rectangle.width = BULLET_WIDTH;
+        rectangle.height = BULLET_HEIGHT;
     }
 
     public void paint(Graphics g) {
@@ -67,6 +72,10 @@ public class Bullet {
             default:
                 break;
         }
+
+        rectangle.x = this.x;
+        rectangle.y = this.y;
+
         if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) live = false;
     }
 
