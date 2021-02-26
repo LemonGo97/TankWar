@@ -8,7 +8,7 @@ public class ResourceManager {
     public static BufferedImage tankL, tankU, tankR, tankD;
     public static BufferedImage bulletL, bulletU, bulletR, bulletD;
     public static BufferedImage[] explods = new BufferedImage[16];
-
+    public static Audio audio;
     static {
         try {
             tankL = ImageIO.read(ResourceManager.class.getResourceAsStream("/images/tankL.gif"));
@@ -19,6 +19,7 @@ public class ResourceManager {
             bulletU = ImageIO.read(ResourceManager.class.getResourceAsStream("/images/bulletU.gif"));
             bulletR = ImageIO.read(ResourceManager.class.getResourceAsStream("/images/bulletR.gif"));
             bulletD = ImageIO.read(ResourceManager.class.getResourceAsStream("/images/bulletD.gif"));
+            audio = new Audio("audio/explode.wav");
             for (int i = 0; i < 16; i++) {
                 explods[i] = ImageIO.read(ResourceManager.class.getResourceAsStream("/images/e" + (i + 1) + ".gif"));
             }

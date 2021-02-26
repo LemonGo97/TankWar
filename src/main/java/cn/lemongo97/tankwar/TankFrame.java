@@ -12,14 +12,13 @@ public class TankFrame extends Frame {
 
     static final int GAME_WIDTH = 800;
     static final int GAME_HEIGHT = 600;
-
-    Tank tank = new Tank(200, 400,  MoveStatus.DOWN, Group.GOOD, this);
+    Tank tank = new Tank(200, 400, MoveStatus.DOWN, Group.GOOD, this);
     List<Bullet> bullets = new ArrayList<>();
     List<Tank> tanks = new ArrayList<>();
     List<Explode> explodes = new ArrayList<>();
 
     public TankFrame() throws HeadlessException {
-        this.setSize(800, 600);
+        this.setSize(GAME_WIDTH, GAME_HEIGHT);
         this.setResizable(false);
         this.setTitle("坦克大战！");
         this.setVisible(true);

@@ -30,7 +30,7 @@ public class Bullet {
     }
 
     public void paint(Graphics g) {
-        if (!live){
+        if (!live) {
             tankFrame.bullets.remove(this);
         }
         switch (moveStatus) {
@@ -67,17 +67,17 @@ public class Bullet {
             default:
                 break;
         }
-        if (x < 0 || y < 0 || x > TankFrame.GAME_HEIGHT || y > TankFrame.GAME_WIDTH) live = false;
+        if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) live = false;
     }
 
     public void collidewith(Tank tank) {
         if (this.group == tank.getGroup()) return;
 
         // TODO
-        Rectangle bulletRectangle = new Rectangle(this.x,this.y,BULLET_WIDTH,BULLET_HEIGHT);
-        Rectangle tankRectangle = new Rectangle(tank.getX(),tank.getY(),Tank.TANK_WIDTH,Tank.TANK_HEIGHT);
+        Rectangle bulletRectangle = new Rectangle(this.x, this.y, BULLET_WIDTH, BULLET_HEIGHT);
+        Rectangle tankRectangle = new Rectangle(tank.getX(), tank.getY(), Tank.TANK_WIDTH, Tank.TANK_HEIGHT);
 
-        if (bulletRectangle.intersects(tankRectangle)){
+        if (bulletRectangle.intersects(tankRectangle)) {
             tank.die();
             this.die();
         }

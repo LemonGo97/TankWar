@@ -17,10 +17,19 @@ public class Tank {
     private Random random = new Random();
 
 
-    public Tank(int x, int y, MoveStatus moveStatus,Group group, TankFrame tankFrame) {
+    public Tank(int x, int y, MoveStatus moveStatus, Group group, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.moveStatus = moveStatus;
+        this.group = group;
+        this.tankFrame = tankFrame;
+    }
+
+    public Tank(int x, int y, MoveStatus moveStatus, Group group, boolean moving, TankFrame tankFrame) {
+        this.x = x;
+        this.y = y;
+        this.moveStatus = moveStatus;
+        this.moving = moving;
         this.group = group;
         this.tankFrame = tankFrame;
     }
@@ -94,8 +103,12 @@ public class Tank {
             default:
                 break;
         }
-        if (this.group == Group.GOOD) return;
-        if (random.nextInt(10) > 8) this.fire();
+        if (this.group == Group.BAD && random.nextInt(10) > 8) this.fire();
+        if (this.group == Group.BAD) randomMove();
+    }
+
+    private void randomMove() {
+        if (random.nextInt(100) > 95) this.moveStatus = MoveStatus.values()[random.nextInt(4)];
     }
 
     public Group getGroup() {
@@ -109,12 +122,14 @@ public class Tank {
     public void fire() {
         int bulletX = this.x + Tank.TANK_WIDTH / 2 - Bullet.BULLET_WIDTH / 2;
         int bulletY = this.y + Tank.TANK_HEIGHT / 2 - Bullet.BULLET_HEIGHT / 2;
-        tankFrame.bullets.add(new Bullet(bulletX, bulletY, this.moveStatus,group, this.tankFrame));
+        tankFrame.bullets.add(new Bullet(bulletX, bulletY, this.moveStatus, group, this.tankFrame));
     }
 
     public void die() {
         this.live = false;
-        tankFrame.explodes.add(new Explode(this.x,this.y,this.tankFrame));
+        int bulletX = this.x + Tank.TANK_WIDTH / 2 - Explode.WIDTH / 2;
+        int bulletY = this.y + Tank.TANK_HEIGHT / 2 - Explode.HEIGHT / 2;
+        tankFrame.explodes.add(new Explode(bulletX, bulletY, this.tankFrame));
 
     }
 }
