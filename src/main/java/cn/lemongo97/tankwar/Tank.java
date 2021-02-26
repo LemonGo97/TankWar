@@ -10,8 +10,8 @@ public class Tank {
     private MoveStatus moveStatus;
     private boolean moving = false;
     private TankFrame tankFrame;
-    public static final int TANK_WIDTH = ResourceManager.tankU.getWidth();
-    public static final int TANK_HEIGHT = ResourceManager.tankU.getHeight();
+    public static final int TANK_WIDTH = ResourceManager.goodTankU.getWidth();
+    public static final int TANK_HEIGHT = ResourceManager.goodTankU.getHeight();
     private boolean live = true;
     private Group group;
     private Random random = new Random();
@@ -70,16 +70,16 @@ public class Tank {
         if (!live) tankFrame.tanks.remove(this);
         switch (moveStatus) {
             case UP:
-                g.drawImage(ResourceManager.tankU, x, y, null);
+                g.drawImage(group == Group.GOOD ? ResourceManager.goodTankU : ResourceManager.badTankU, x, y, null);
                 break;
             case DOWN:
-                g.drawImage(ResourceManager.tankD, x, y, null);
+                g.drawImage(group == Group.GOOD ? ResourceManager.goodTankD : ResourceManager.badTankD, x, y, null);
                 break;
             case LEFT:
-                g.drawImage(ResourceManager.tankL, x, y, null);
+                g.drawImage(group == Group.GOOD ? ResourceManager.goodTankL : ResourceManager.badTankL, x, y, null);
                 break;
             case RIGHT:
-                g.drawImage(ResourceManager.tankR, x, y, null);
+                g.drawImage(group == Group.GOOD ? ResourceManager.goodTankR : ResourceManager.badTankR, x, y, null);
                 break;
         }
         move();
@@ -105,6 +105,15 @@ public class Tank {
         }
         if (this.group == Group.BAD && random.nextInt(10) > 8) this.fire();
         if (this.group == Group.BAD) randomMove();
+
+        boundsCheck();
+    }
+
+    private void boundsCheck() {
+        if (this.x < 0) x = 0;
+        if (this.y < 30) y = 30;
+        if (this.x > TankFrame.GAME_WIDTH - Tank.TANK_WIDTH) x = TankFrame.GAME_WIDTH - TANK_WIDTH;
+        if (this.y > TankFrame.GAME_HEIGHT - Tank.TANK_HEIGHT) y = TankFrame.GAME_HEIGHT - TANK_HEIGHT;
     }
 
     private void randomMove() {

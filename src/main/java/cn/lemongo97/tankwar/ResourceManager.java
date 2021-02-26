@@ -5,16 +5,22 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class ResourceManager {
-    public static BufferedImage tankL, tankU, tankR, tankD;
+    public static BufferedImage goodTankL, goodTankU, goodTankR, goodTankD;
+    public static BufferedImage badTankL, badTankU, badTankR, badTankD;
     public static BufferedImage bulletL, bulletU, bulletR, bulletD;
     public static BufferedImage[] explods = new BufferedImage[16];
     public static Audio audio;
+
     static {
         try {
-            tankL = ImageIO.read(ResourceManager.class.getResourceAsStream("/images/tankL.gif"));
-            tankU = ImageIO.read(ResourceManager.class.getResourceAsStream("/images/tankU.gif"));
-            tankR = ImageIO.read(ResourceManager.class.getResourceAsStream("/images/tankR.gif"));
-            tankD = ImageIO.read(ResourceManager.class.getResourceAsStream("/images/tankD.gif"));
+            goodTankL = ImageIO.read(ResourceManager.class.getResourceAsStream("/images/tankL.gif"));
+            goodTankU = ImageIO.read(ResourceManager.class.getResourceAsStream("/images/tankU.gif"));
+            goodTankR = ImageIO.read(ResourceManager.class.getResourceAsStream("/images/tankR.gif"));
+            goodTankD = ImageIO.read(ResourceManager.class.getResourceAsStream("/images/tankD.gif"));
+            badTankL = ImageIO.read(ResourceManager.class.getResourceAsStream("/images/tankL.gif"));
+            badTankU = ImageIO.read(ResourceManager.class.getResourceAsStream("/images/tankU.gif"));
+            badTankR = ImageIO.read(ResourceManager.class.getResourceAsStream("/images/tankR.gif"));
+            badTankD = ImageIO.read(ResourceManager.class.getResourceAsStream("/images/tankD.gif"));
             bulletL = ImageIO.read(ResourceManager.class.getResourceAsStream("/images/bulletL.gif"));
             bulletU = ImageIO.read(ResourceManager.class.getResourceAsStream("/images/bulletU.gif"));
             bulletR = ImageIO.read(ResourceManager.class.getResourceAsStream("/images/bulletR.gif"));
