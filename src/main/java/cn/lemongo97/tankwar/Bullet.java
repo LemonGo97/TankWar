@@ -4,8 +4,8 @@ import java.awt.*;
 
 public class Bullet {
     private static final int SPEED = 30;
-    public static final int BULLET_WIDTH = 6;
-    public static final int BULLET_HEIGHT = 6;
+    public static final int BULLET_WIDTH = ResourceManager.bulletU.getWidth();
+    public static final int BULLET_HEIGHT = ResourceManager.bulletU.getHeight();
     private int x;
     private int y;
     private boolean live = true;
@@ -23,11 +23,20 @@ public class Bullet {
         if (!live){
             tankFrame.bullets.remove(this);
         }
-        Color color = g.getColor();
-        g.setColor(Color.RED);
-        g.fillRect(x, y, BULLET_WIDTH, BULLET_HEIGHT);
-        g.setColor(color);
-
+        switch (moveStatus) {
+            case UP:
+                g.drawImage(ResourceManager.bulletU, x, y, null);
+                break;
+            case DOWN:
+                g.drawImage(ResourceManager.bulletD, x, y, null);
+                break;
+            case LEFT:
+                g.drawImage(ResourceManager.bulletL, x, y, null);
+                break;
+            case RIGHT:
+                g.drawImage(ResourceManager.bulletR, x, y, null);
+                break;
+        }
         move();
     }
 
