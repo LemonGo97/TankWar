@@ -5,17 +5,18 @@ import java.awt.*;
 public class Tank {
     private Integer x;
     private Integer y;
-    private Integer speed;
+    private static final int SPEED = 10;
     private MoveStatus moveStatus;
     private boolean moving = false;
     private TankFrame tankFrame;
     public static final int TANK_WIDTH = ResourceManager.tankU.getWidth();
     public static final int TANK_HEIGHT = ResourceManager.tankU.getHeight();
+    private boolean live = true;
 
-    public Tank(int x, int y, int speed, MoveStatus moveStatus, TankFrame tankFrame) {
+
+    public Tank(int x, int y, MoveStatus moveStatus, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
-        this.speed = speed;
         this.moveStatus = moveStatus;
         this.tankFrame = tankFrame;
     }
@@ -36,14 +37,6 @@ public class Tank {
         this.y = y;
     }
 
-    public Integer getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(Integer speed) {
-        this.speed = speed;
-    }
-
     public MoveStatus getMoveStatus() {
         return moveStatus;
     }
@@ -61,6 +54,7 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
+        if (!live) tankFrame.tanks.remove(this);
         switch (moveStatus) {
             case UP:
                 g.drawImage(ResourceManager.tankU, x, y, null);
@@ -82,16 +76,16 @@ public class Tank {
         if (!moving) return;
         switch (moveStatus) {
             case UP:
-                y -= speed;
+                y -= SPEED;
                 break;
             case DOWN:
-                y += speed;
+                y += SPEED;
                 break;
             case LEFT:
-                x -= speed;
+                x -= SPEED;
                 break;
             case RIGHT:
-                x += speed;
+                x += SPEED;
                 break;
             default:
                 break;
@@ -102,5 +96,9 @@ public class Tank {
         int bulletX = this.x + Tank.TANK_WIDTH / 2 - Bullet.BULLET_WIDTH / 2;
         int bulletY = this.y + Tank.TANK_HEIGHT / 2 - Bullet.BULLET_HEIGHT / 2;
         tankFrame.bullets.add(new Bullet(bulletX, bulletY, this.moveStatus, this.tankFrame));
+    }
+
+    public void die() {
+        this.live = false;
     }
 }

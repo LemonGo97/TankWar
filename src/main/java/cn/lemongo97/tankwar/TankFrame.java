@@ -13,8 +13,9 @@ public class TankFrame extends Frame {
     static final int GAME_WIDTH = 800;
     static final int GAME_HEIGHT = 600;
 
-    Tank tank = new Tank(200, 200, 10, MoveStatus.DOWN, this);
+    Tank tank = new Tank(200, 400,  MoveStatus.DOWN, this);
     List<Bullet> bullets = new ArrayList<>();
+    List<Tank> tanks = new ArrayList<>();
 
     public TankFrame() throws HeadlessException {
         this.setSize(800, 600);
@@ -35,10 +36,20 @@ public class TankFrame extends Frame {
         Color color = g.getColor();
         g.setColor(Color.WHITE);
         g.drawString("子弹的数量：" + bullets.size(), 10, 60);
+        g.drawString("敌方的数量：" + tanks.size(), 10, 80);
         g.setColor(color);
         tank.paint(g);
         for (int i = 0; i < bullets.size(); i++) {
             bullets.get(i).paint(g);
+        }
+        for (int i = 0; i < tanks.size(); i++) {
+            tanks.get(i).paint(g);
+        }
+
+        for (int i = 0; i < bullets.size(); i++) {
+            for (int j = 0; j < tanks.size(); j++) {
+                bullets.get(i).collidewith(tanks.get(j));
+            }
         }
     }
 
@@ -114,7 +125,7 @@ public class TankFrame extends Frame {
                 case KeyEvent.VK_DOWN:
                     down = false;
                     break;
-                case KeyEvent.VK_CONTROL:
+                case KeyEvent.VK_SPACE:
                     tank.fire();
                     break;
                 default:

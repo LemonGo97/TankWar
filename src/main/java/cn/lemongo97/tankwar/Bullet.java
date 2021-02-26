@@ -60,4 +60,18 @@ public class Bullet {
         if (x < 0 || y < 0 || x > TankFrame.GAME_HEIGHT || y > TankFrame.GAME_WIDTH) live = false;
     }
 
+    public void collidewith(Tank tank) {
+        Rectangle bulletRectangle = new Rectangle(this.x,this.y,BULLET_WIDTH,BULLET_HEIGHT);
+        Rectangle tankRectangle = new Rectangle(tank.getX(),tank.getY(),Tank.TANK_WIDTH,Tank.TANK_HEIGHT);
+
+        if (bulletRectangle.intersects(tankRectangle)){
+            tank.die();
+            this.die();
+        }
+
+    }
+
+    private void die() {
+        this.live = false;
+    }
 }
