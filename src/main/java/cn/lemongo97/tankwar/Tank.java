@@ -115,13 +115,13 @@ public class Tank {
                 break;
         }
 
-        rectangle.x = this.x;
-        rectangle.y = this.y;
 
         if (this.group == Group.BAD && random.nextInt(10) > 8) this.fire();
         if (this.group == Group.BAD) randomMove();
 
         boundsCheck();
+        rectangle.x = this.x;
+        rectangle.y = this.y;
     }
 
     private void boundsCheck() {
