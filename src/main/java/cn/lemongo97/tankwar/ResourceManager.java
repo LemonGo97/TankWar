@@ -5,6 +5,9 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class ResourceManager {
+
+    private ResourceManager(){}
+
     public static BufferedImage goodTankL, goodTankU, goodTankR, goodTankD;
     public static BufferedImage badTankL, badTankU, badTankR, badTankD;
     public static BufferedImage bulletL, bulletU, bulletR, bulletD;

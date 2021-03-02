@@ -1,6 +1,11 @@
 package cn.lemongo97.tankwar;
 
+import cn.lemongo97.tankwar.Strategy.DefaultFireStrategy;
+import cn.lemongo97.tankwar.Strategy.FourDirFireStrategy;
+import cn.lemongo97.tankwar.Strategy.IFireStrategy;
+
 import java.awt.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 
 public class Tank {
@@ -8,27 +13,18 @@ public class Tank {
     private Integer y;
     private static final int SPEED = 10;
     private MoveStatus moveStatus;
-    private boolean moving = false;
-    private TankFrame tankFrame;
+    private boolean moving;
+    private final TankFrame tankFrame;
     public static final int TANK_WIDTH = ResourceManager.goodTankU.getWidth();
     public static final int TANK_HEIGHT = ResourceManager.goodTankU.getHeight();
     private boolean live = true;
     private Group group;
-    private Random random = new Random();
-
+    private final Random random = new Random();
+    IFireStrategy fireStrategy;
     Rectangle rectangle = new Rectangle();
 
     public Tank(int x, int y, MoveStatus moveStatus, Group group, TankFrame tankFrame) {
-        this.x = x;
-        this.y = y;
-        this.moveStatus = moveStatus;
-        this.group = group;
-        this.tankFrame = tankFrame;
-
-        rectangle.x = x;
-        rectangle.y = y;
-        rectangle.width = TANK_WIDTH;
-        rectangle.height = TANK_HEIGHT;
+        this(x, y, moveStatus, group, false, tankFrame);
     }
 
     public Tank(int x, int y, MoveStatus moveStatus, Group group, boolean moving, TankFrame tankFrame) {
@@ -43,7 +39,17 @@ public class Tank {
         rectangle.y = y;
         rectangle.width = TANK_WIDTH;
         rectangle.height = TANK_HEIGHT;
+
+        String otherTankFileStrategy = PropertyManagement.getString("otherTankFileStrategy");
+        String myTankFireStrategy = PropertyManagement.getString("myTankFireStrategy");
+
+        try {
+            fireStrategy = ClassUtil.getInstance(group == Group.GOOD ? myTankFireStrategy : otherTankFileStrategy);
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | NoSuchMethodException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
+
 
     public Integer getX() {
         return x;
@@ -144,9 +150,11 @@ public class Tank {
     }
 
     public void fire() {
-        int bulletX = this.x + Tank.TANK_WIDTH / 2 - Bullet.BULLET_WIDTH / 2;
-        int bulletY = this.y + Tank.TANK_HEIGHT / 2 - Bullet.BULLET_HEIGHT / 2;
-        tankFrame.bullets.add(new Bullet(bulletX, bulletY, this.moveStatus, group, this.tankFrame));
+        fireStrategy.fire(this);
+    }
+
+    public TankFrame getTankFrame() {
+        return tankFrame;
     }
 
     public void die() {

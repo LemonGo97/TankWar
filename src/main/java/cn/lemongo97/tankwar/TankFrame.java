@@ -10,9 +10,9 @@ import java.util.ArrayList;
 
 public class TankFrame extends Frame {
 
-    static final int GAME_WIDTH = 800;
-    static final int GAME_HEIGHT = 600;
-    Tank tank = new Tank(200, 400, MoveStatus.DOWN, Group.GOOD, this);
+    static final int GAME_WIDTH = PropertyManagement.getInt("gameWidth");
+    static final int GAME_HEIGHT = PropertyManagement.getInt("gameHeight");
+    Tank tank = new Tank(400, 0, MoveStatus.UP, Group.GOOD, this);
     List<Bullet> bullets = new ArrayList<>();
     List<Tank> tanks = new ArrayList<>();
     List<Explode> explodes = new ArrayList<>();

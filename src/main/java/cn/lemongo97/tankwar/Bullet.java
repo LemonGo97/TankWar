@@ -32,6 +32,8 @@ public class Bullet {
         rectangle.y = y;
         rectangle.width = BULLET_WIDTH;
         rectangle.height = BULLET_HEIGHT;
+
+        tankFrame.bullets.add(this);
     }
 
     public void paint(Graphics g) {

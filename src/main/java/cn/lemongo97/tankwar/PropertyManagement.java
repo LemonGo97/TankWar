@@ -5,7 +5,9 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class PropertyManagement {
-    static Properties properties = new Properties();
+    private static final Properties properties = new Properties();
+
+    private PropertyManagement(){}
 
     static {
         try {
@@ -17,8 +19,15 @@ public class PropertyManagement {
     }
 
     public static Object get(String key) {
-        if (properties == null) return null;
         return properties.get(key);
+    }
+
+    public static Integer getInt(String key) {
+        return Integer.parseInt((String)properties.get(key));
+    }
+
+    public static String getString(String key) {
+        return (String)properties.get(key);
     }
 
     public static void main(String[] args) {
