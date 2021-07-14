@@ -1,7 +1,5 @@
 package cn.lemongo97.tankwar;
 
-import cn.lemongo97.tankwar.Strategy.DefaultFireStrategy;
-import cn.lemongo97.tankwar.Strategy.FourDirFireStrategy;
 import cn.lemongo97.tankwar.Strategy.IFireStrategy;
 
 import java.awt.*;
